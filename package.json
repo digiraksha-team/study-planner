@@ -1,0 +1,67 @@
+{
+  "name": "studyflow",
+  "productName": "StudyFlow",
+  "version": "0.3.0",
+  "private": true,
+  "description": "Offline-first desktop study planner with a deterministic scheduling engine",
+  "main": "electron/main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "node scripts/test-scheduler.mjs && node scripts/test-backend.cjs",
+    "test:scheduler": "node scripts/test-scheduler.mjs",
+    "test:backend": "node scripts/test-backend.cjs",
+    "smoke": "electron scripts/smoke.js",
+    "check:package": "electron scripts/check-package.cjs",
+    "preview": "node scripts/preview-plan.cjs",
+    "dist": "electron-builder"
+  },
+  "dependencies": {
+    "pdfjs-dist": "^4.10.38",
+    "sql.js": "^1.13.0"
+  },
+  "devDependencies": {
+    "electron": "^33.2.0",
+    "electron-builder": "^26.15.3"
+  },
+  "build": {
+    "appId": "com.studyflow.app",
+    "productName": "StudyFlow",
+    "copyright": "StudyFlow",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "electron/**/*",
+      "renderer/**/*",
+      "package.json"
+    ],
+    "asarUnpack": [
+      "node_modules/sql.js/**",
+      "node_modules/pdfjs-dist/**"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "StudyFlow"
+    }
+  }
+}
